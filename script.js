@@ -1,260 +1,187 @@
-document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+document.getElementById('loadFileButton').addEventListener('click', loadFile);
 
-function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        showToast('Info', 'Processing file, please wait...', 'info');
-        readFileContent(file).then(content => {
-            const processedData = processFileContent(content);
-            encryptAsHash(JSON.stringify(processedData)).then(hash => {
-                localStorage.setItem(hash, JSON.stringify(processedData));
-                const url = `${window.location.origin}${window.location.pathname}?hash=${hash}`;
-                console.log('Shareable URL:', url);
-                displayShareableLink(url);
-                showToast('Success', 'File processed successfully!', 'success');
-            }).catch(error => {
-                showToast('Error', 'Error generating hash. Please try again.', 'danger');
-            });
-            populateGameboard(processedData);
-        }).catch(error => {
-            showToast('Error', 'Error processing file. Please check the file format and try again.', 'danger');
-        });
-    }
-}
-
-function readFileContent(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            resolve(e.target.result);
-        };
-        reader.onerror = function() {
-            reject(new Error('Failed to read file'));
-        };
-        reader.readAsText(file);
-    });
-}
-
-function generateShareableUrl(data) {
-    return encryptAsHash(JSON.stringify(data)).then(hash => {
-        const encodedData = encodeURIComponent(JSON.stringify(data));
-        const url = `${window.location.origin}${window.location.pathname}?hash=${hash}`;
-        console.log('Shareable URL:', url);
-        return url;
-    });
-}
-
-function processFileContent(content) {
-    try {
-        const lines = content.split('\n');
-        const result = [];
-        let currentColumn = null;
-
-        lines.forEach(line => {
-            line = line.trim();
-            if (line.startsWith('# ') && !line.startsWith('## ')) {
-                const headerText = line.slice(1).trim();
-                result.push({ header: headerText });
-            } else if (line.startsWith('## ')) {
-                if (currentColumn) {
-                    result.push(currentColumn);
-                }
-                const columnText = line.slice(2).trim();
-                currentColumn = { column: columnText, values: [] };
-            } else if (currentColumn && line) {
-                const value = isNaN(line) ? line : Number(line);
-                currentColumn.values.push(value);
-            }
-        });
-
-        if (currentColumn) {
-            result.push(currentColumn);
-        }
-
-        return result;
-    } catch (error) {
-        console.error('Error processing file content:', error);
-        throw error;
-    }
-}
-
-async function encryptAsHash(data) {
-    const encoder = new TextEncoder();
-    const dataBuffer = encoder.encode(data);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    return bufferToHex(hashBuffer);
-}
-
-function bufferToHex(buffer) {
-    const byteArray = new Uint8Array(buffer);
-    const hexCodes = [...byteArray].map(byte => byte.toString(16).padStart(2, '0'));
-    return hexCodes.join('');
-}
-
-function populateGameboard(data) {
-    const container = document.getElementById('gameboardContainer');
-    container.innerHTML = '';
-
-    const header = data.find(item => item.header)?.header;
-    if (!header) {
-        showToast('Error', 'Header not found in data', 'danger');
-        return;
-    }
-
-    const columns = data.filter(item => item.column && item.column !== 'Free');
-    if (columns.length === 0) {
-        showToast('Error', 'No columns found in data', 'danger');
-        return;
-    }
-
-    const freeColumn = data.find(item => item.column === 'Free');
-    if (!freeColumn) {
-        showToast('Error', 'Free column not found in data', 'danger');
-        return;
-    }
-
-    const headerElement = document.createElement('h1');
-    headerElement.textContent = header;
-    container.appendChild(headerElement);
-
-    const gridContainer = document.createElement('div');
-    gridContainer.className = 'col-lg-8 col-md-10 col-12';
-
-    const grid = document.createElement('div');
-    grid.className = 'row';
-
-    const firstRow = document.createElement('div');
-    firstRow.className = 'row';
-    columns.forEach(col => {
-        const card = createCard(col.column);
-        firstRow.appendChild(card);
-    });
-    grid.appendChild(firstRow);
-
-    const usedValues = new Set();
-    for (let i = 1; i <= 5; i++) {
-        const row = document.createElement('div');
-        row.className = 'row';
-        for (let j = 0; j < 5; j++) {
-            if (i === 3 && j === 2) {
-                const freeValue = getRandomValue(freeColumn.values, usedValues);
-                const card = createCard(freeValue);
-                row.appendChild(card);
-            } else {
-                const column = columns[j];
-                const value = getRandomValue(column.values, usedValues);
-                const card = createCard(value);
-                row.appendChild(card);
-            }
-        }
-        grid.appendChild(row);
-    }
-
-    gridContainer.appendChild(grid);
-    container.appendChild(gridContainer);
-}
-
-function createCard(text) {
-    const cardCol = document.createElement('div');
-    cardCol.className = 'col p-1';
-
-    const card = document.createElement('div');
-    card.className = 'card h-100';
-
-    const cardBody = document.createElement('div');
-    cardBody.className = 'card-body d-flex align-items-center justify-content-center';
-    cardBody.textContent = text;
-
-    card.appendChild(cardBody);
-    cardCol.appendChild(card);
-
-    return cardCol;
-}
-
-function getRandomValue(values, usedValues) {
-    let value;
-    do {
-        const randomIndex = Math.floor(Math.random() * values.length);
-        value = values[randomIndex];
-    } while (usedValues.has(value));
-    usedValues.add(value);
-    return value;
-}
-
-function displayShareableLink(url) {
-    const container = document.getElementById('shareableUrlContainer');
-    container.innerHTML = ''; // Clear any previous content
-
-    const inputGroup = document.createElement('div');
-    inputGroup.className = 'input-group';
-
-    const inputElement = document.createElement('input');
-    inputElement.type = 'text';
-    inputElement.className = 'form-control';
-    inputElement.value = url;
-    inputElement.disabled = true;
-    inputElement.setAttribute('aria-label', 'Shareable URL');
-
-    const inputGroupAppend = document.createElement('div');
-    inputGroupAppend.className = 'input-group-append';
-
-    const copyButton = document.createElement('button');
-    copyButton.className = 'btn btn-primary';
-    copyButton.innerHTML = '<i class="bi bi-share"></i>'; // Updated icon for copy
-    copyButton.setAttribute('aria-label', 'Copy URL');
-
-    // Remove rounded edges between input and button
-    inputElement.style.borderTopRightRadius = '0';
-    inputElement.style.borderBottomRightRadius = '0';
-    copyButton.style.borderTopLeftRadius = '0';
-    copyButton.style.borderBottomLeftRadius = '0';
-
-    copyButton.onclick = function() {
-        navigator.clipboard.writeText(url).then(() => {
-            showToast('Success', 'URL copied to clipboard', 'success');
-        }).catch(err => {
-            console.error('Error copying URL: ', err);
-            showToast('Error', 'Failed to copy URL', 'danger');
-        });
-    };
-
-    inputGroupAppend.appendChild(copyButton);
-    inputGroup.appendChild(inputElement);
-    inputGroup.appendChild(inputGroupAppend);
-    container.appendChild(inputGroup);
-}
-
-function showToast(title, message, type) {
-    const toastContainer = document.getElementById('toast-container');
-    const toastId = `toast-${Date.now()}`;
-    const toastHTML = `
-        <div id="${toastId}" class="toast align-items-center text-bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <strong>${title}:</strong> ${message}
-                </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    `;
-    toastContainer.insertAdjacentHTML('beforeend', toastHTML);
-
-    const toastElement = document.getElementById(toastId);
-    const toast = new bootstrap.Toast(toastElement);
-    toast.show();
-}
+let selectedFile = null;
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const hash = urlParams.get('hash');
-    if (hash) {
-        const storedData = localStorage.getItem(hash);
-        if (storedData) {
-            const parsedData = JSON.parse(storedData);
-            console.log('Data from local storage:', parsedData);  // Debugging
-            populateGameboard(parsedData);
-        } else {
-            showToast('Error', 'Data not found in local storage.', 'danger');
-        }
+    const dataParam = urlParams.get('data');
+    if (dataParam) {
+        const jsonData = urlSafeBase64Decode(dataParam);
+        console.log(jsonData); // Add this line to log the decoded JSON data
+        const bingoData = JSON.parse(jsonData);
+        populateGameboard(bingoData);
     }
+};
+
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Error attempting to enable fullscreen mode: ${err.message} (${err.name})`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+function urlSafeBase64Encode(jsonObject) {
+    const jsonString = JSON.stringify(jsonObject);
+    const base64String = btoa(encodeURIComponent(jsonString));
+    // Make the base64 string URL-safe
+    const urlSafeBase64String = base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return urlSafeBase64String;
+}
+
+function urlSafeBase64Decode(base64String) {
+    // Reverse the URL-safe transformations
+    const base64 = base64String.replace(/-/g, '+').replace(/_/g, '/');
+    return decodeURIComponent(atob(base64));
+}
+
+function handleFileSelect(event) {
+    selectedFile = event.target.files[0];
+}
+
+function loadFile() {
+    if (!selectedFile) {
+        console.log("No file selected");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const content = e.target.result;
+        processFileContent(content);
+    };
+    reader.readAsText(selectedFile);
+}
+
+function processFileContent(content) {
+    const lines = content.split('\n');
+    let bingoData = { fileName: "" };
+    let currentSection = null;
+
+    lines.forEach(line => {
+        line = line.trim();
+        if (line.startsWith('# ')) {
+            bingoData.fileName = line.substring(2).trim();
+        } else if (line.startsWith('## ')) {
+            currentSection = line.substring(3).trim();
+            bingoData[currentSection] = [];
+        } else if (line && currentSection) {
+            bingoData[currentSection].push(line);
+        }
+    });
+
+    const urlSafeBase64String = urlSafeBase64Encode(bingoData);
+
+    displayShareableUrl(urlSafeBase64String);
+    populateGameboard(bingoData);
+}
+
+function displayShareableUrl(encodedData) {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const shareableUrl = `${baseUrl}?data=${encodedData}`;
+
+    const urlContainer = document.getElementById('shareableUrlContainer');
+    urlContainer.innerHTML = `
+        <div class="input-group">
+            <input type="text" class="form-control" value="${shareableUrl}" readonly>
+            <button class="btn btn-outline-secondary" onclick="copyToClipboard('${shareableUrl}')">Copy URL</button>
+        </div>
+    `;
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('URL copied to clipboard');
+    }).catch(err => {
+        console.error('Could not copy text: ', err);
+    });
+}
+
+function populateGameboard(bingoData) {
+    console.log(bingoData); // Add this line to log the data used to populate the game board
+    const container = document.getElementById('gameboardContainer');
+    container.innerHTML = ''; // Clear previous content
+
+    // Create main container
+    const mainContainer = document.createElement('div');
+    mainContainer.className = 'container col-lg-8 col-md-10 col-12';
+
+    // Add filename as a centered header
+    const fileNameHeader = document.createElement('h2');
+    fileNameHeader.className = 'text-center my-4';
+    fileNameHeader.textContent = bingoData.fileName;
+    mainContainer.appendChild(fileNameHeader);
+
+    // Collect column labels and data
+    const labels = Object.keys(bingoData).filter(key => key !== 'fileName' && key !== 'Free');
+    const freeValues = bingoData['Free'];
+    const columnData = labels.map(label => shuffleArray(bingoData[label]));
+
+    // Create grid
+    const gridContainer = document.createElement('div');
+    gridContainer.className = 'row g-3';
+
+    // Create header row
+    const headerRow = document.createElement('div');
+    headerRow.className = 'row g-3 bingo-header';
+    labels.forEach(label => {
+        const headerCol = document.createElement('div');
+        headerCol.className = 'col text-center';
+        const headerCard = document.createElement('div');
+        headerCard.className = 'card h-100';
+        const headerCardBody = document.createElement('div');
+        headerCardBody.className = 'card-body';
+        headerCardBody.textContent = label;
+        headerCard.appendChild(headerCardBody);
+        headerCol.appendChild(headerCard);
+        headerRow.appendChild(headerCol);
+    });
+    gridContainer.appendChild(headerRow);
+
+    // Create rows for bingo tiles
+    for (let rowIndex = 0; rowIndex < 5; rowIndex++) {
+        const row = document.createElement('div');
+        row.className = 'row g-3';
+
+        labels.forEach((label, colIndex) => {
+            const col = document.createElement('div');
+            col.className = 'col text-center';
+            const card = document.createElement('div');
+            card.className = 'card h-100';
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body d-flex align-items-center justify-content-center';
+
+            if (rowIndex === 2 && colIndex === 2) {
+                // Middle tile is a free space
+                cardBody.className += ' bingo-tile-free';
+                cardBody.textContent = freeValues[Math.floor(Math.random() * freeValues.length)];
+            } else {
+                // Regular bingo tile
+                cardBody.className += ' bingo-tile';
+                cardBody.textContent = columnData[colIndex][rowIndex];
+            }
+
+            card.appendChild(cardBody);
+            col.appendChild(card);
+            row.appendChild(col);
+        });
+
+        gridContainer.appendChild(row);
+    }
+
+    mainContainer.appendChild(gridContainer);
+    container.appendChild(mainContainer);
+}
+
+function shuffleArray(array) {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
 }
