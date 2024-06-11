@@ -15,14 +15,17 @@ body, a {
 }
 
 h2, h1 {
-    font-family: 'Playfair Display', serif;}
+    font-family: 'Playfair Display', serif;
+    font-style: normal; /* Ensure normal (non-italic) style */
+}
 
 #gameboardContainer h2 {
     font-family: 'Playfair Display', serif;
     font-weight: bold;
     color: var(--text-color);
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
-    text-align: center; /* Corrected property */
+    text-align: center;
+    font-style: normal; /* Ensure normal (non-italic) style */
 }
 
 .card {
