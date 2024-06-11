@@ -8,11 +8,40 @@
     --box-shadow-color: black;
 }
 
+/* General Styles */
+body, a {
+    background-color: var(--background-color);
+    text-decoration: none;
+}
 
-#gameboardContainer h1 {
+#gameboardContainer h2 {
     font-family: 'Playfair Display', serif;
     font-weight: bold;
     color: var(--text-color);
     text-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
     text-align: center; /* Corrected property */
+}
+
+.card {
+    height: 100%;
+}
+
+.bingo-tile, .bingo-tile-free, .bingo-header .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px; /* Adjust this value as needed */
+}
+
+/* Custom Alert */
+.custom-alert {
+    background-color: var(--alert-bg-color); /* Custom background color */
+    color: var(--border-color); /* Custom text color */
+    border-color: var(--border-color); /* Custom border color */
+}
+
+/* Game Title */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
 }
