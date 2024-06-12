@@ -2,17 +2,27 @@
 
 ## Free
 Free
-Another tile that is randomly chosen
-And here's a third
+Every line you add
+Is a New Tile that Might
+Be Shuffled onto Card
 
 ## Your header here
+1
+2
+3
+4
 This is a random thing that goes under the first column.
+6
 So is this.
-This one too!
-And so is this.
-You don't need a specific amount of tiles in a column.
-So long as you have five level-two headers (double-hash).
-Plus the one labelled Free (above)
+7
+8
+9
+10
+Each line is.
+12
+13
+Replace the numbers
+15
 
 
 ## I

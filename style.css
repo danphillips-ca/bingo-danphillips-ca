@@ -14,7 +14,7 @@ body, a {
     text-decoration: none;
 }
 
-h2, h1 {
+h1 {
     font-family: 'Playfair Display', serif;
     font-style: normal; /* Ensure normal (non-italic) style */
 }
@@ -50,4 +50,29 @@ h2, h1 {
 h1 {
     font-family: 'Playfair Display', serif;
     font-weight: bold;
+}
+
+
+/* Base styles */
+.peek-image {
+    position: absolute;
+    top: 30%; /* Move the image higher */
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(-1); /* Center and flip the image horizontally */
+    z-index: -1; /* Ensure it is behind the alert */
+    max-height: 60vh; /* Make the image 60% of the screen height */
+    width: auto; /* Maintain aspect ratio */
+}
+
+/* Media query for md and larger screens */
+@media (min-width: 768px) {
+    .peek-image {
+        left: 50%; /* Center the image horizontally */
+        top: 20%; /* Adjust the vertical position as needed */
+    }
+}
+
+/* Ensure the image hides correctly */
+.peek-image[style*="display: none"] {
+    display: none !important;
 }

@@ -88,7 +88,7 @@ function displayShareableUrl(encodedData) {
     urlContainer.innerHTML = `
         <div class="input-group">
             <input type="text" class="form-control" value="${shareableUrl}" readonly>
-            <button class="btn btn-outline-secondary" onclick="copyToClipboard('${shareableUrl}')">Copy URL</button>
+            <button class="btn btn-primary" onclick="copyToClipboard('${shareableUrl}')">Share URL <i class="bi bi-send"></i></button>
         </div>
     `;
 }
