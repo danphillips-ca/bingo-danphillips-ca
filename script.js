@@ -1,6 +1,26 @@
 document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 document.getElementById('loadFileButton').addEventListener('click', loadFile);
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listener to toggle background color and circle on click
+    document.querySelectorAll('.bingo-tile').forEach(tile => {
+        tile.addEventListener('click', function() {
+            if (this.style.backgroundColor === 'rgb(230, 236, 255)') {
+                this.style.backgroundColor = '#eee';
+                const circle = this.querySelector('.circle');
+                if (circle) {
+                    this.removeChild(circle);
+                }
+            } else {
+                this.style.backgroundColor = '#E6ECFF';
+                const circle = document.createElement('div');
+                circle.className = 'circle';
+                this.appendChild(circle);
+            }
+        });
+    });
+});
+
 let selectedFile = null;
 
 window.onload = function() {
@@ -153,7 +173,7 @@ function populateGameboard(bingoData) {
             const card = document.createElement('div');
             card.className = 'card h-100';
             const cardBody = document.createElement('div');
-            cardBody.className = 'card-body d-flex align-items-center justify-content-center';
+            cardBody.className = 'card-body d-flex align-items-center justify-content-center bingo-tile';
 
             if (rowIndex === 2 && colIndex === 2) {
                 // Middle tile is a free space
@@ -175,6 +195,24 @@ function populateGameboard(bingoData) {
 
     mainContainer.appendChild(gridContainer);
     container.appendChild(mainContainer);
+
+    // Add event listeners after elements are created
+    document.querySelectorAll('.bingo-tile').forEach(tile => {
+        tile.addEventListener('click', function() {
+            if (this.style.backgroundColor === 'rgb(230, 236, 255)') {
+                this.style.backgroundColor = '#eee';
+                const circle = this.querySelector('.circle');
+                if (circle) {
+                    this.removeChild(circle);
+                }
+            } else {
+                this.style.backgroundColor = '#E6ECFF';
+                const circle = document.createElement('div');
+                circle.className = 'circle';
+                this.appendChild(circle);
+            }
+        });
+    });
 }
 
 function shuffleArray(array) {
@@ -185,3 +223,16 @@ function shuffleArray(array) {
     }
     return shuffledArray;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.bingo-tile .circle').forEach(circle => {
+        // Generate random values for top and left within the range of -20px to 20px
+        const randomTop = Math.floor(Math.random() * 41) - 20; // Random number between -20 and 20
+        const randomLeft = Math.floor(Math.random() * 41) - 20; // Random number between -20 and 20
+
+        // Set the position of the circle
+        circle.style.top = `${randomTop}px`;
+        circle.style.left = `${randomLeft}px`;
+    });
+});
+

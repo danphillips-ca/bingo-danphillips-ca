@@ -19,6 +19,7 @@ h1 {
     font-style: normal; /* Ensure normal (non-italic) style */
 }
 
+
 #gameboardContainer h2 {
     font-family: 'Playfair Display', serif;
     font-weight: bold;
@@ -37,6 +38,52 @@ h1 {
     align-items: center;
     justify-content: center;
     height: 100px; /* Adjust this value as needed */
+}
+
+.bingo-header .card {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.bingo-header .card-body {
+    color: var(--text-color) !important;
+    font-weight: bold !important;
+    align-items: flex-end !important;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%; /* Ensure the card body takes up the full height of the card */
+}
+
+.bingo-tile {
+    position: relative;
+    height: 150px; /* 1:1 Aspect Ratio */
+    background-color: #eee; /* Initial background color */
+    cursor: pointer; /* Indicate that the tile is clickable */
+}
+
+.bingo-tile .card-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bingo-tile .circle {
+    position: absolute;
+    width: 70%; /* Adjust size as needed */
+    height: 70%; /* Adjust size as needed */
+    background-color: pink;
+    border-radius: 50%;
+    opacity: 0.5;
+    pointer-events: none; /* Ensure the circle does not interfere with click events */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Custom Alert */
