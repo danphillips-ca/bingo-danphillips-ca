@@ -58,7 +58,6 @@ h1 {
     position: absolute;
     top: 30%; /* Move the image higher */
     left: 50%;
-    transform: translate(-50%, -50%) scaleX(-1); /* Center and flip the image horizontally */
     z-index: -1; /* Ensure it is behind the alert */
     max-height: 60vh; /* Make the image 60% of the screen height */
     width: auto; /* Maintain aspect ratio */
