@@ -81,7 +81,7 @@
             </ul>
             <!-- Examples -->
             <h2><span style="font-size:.6em;">Try one right now!</span></h2>
-            <div class="container">
+<!--            <div class="container">
                 <div class="row mb-3 ms-0 me-0">
                     <div class="col-lg-6 mb-3 mb-lg-0 text-center">
                         <div class="d-flex flex-column">
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     <!--TOAST-->
     <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
     <div id="feedback" class="alert alert-info" style="display: none;"></div>
@@ -121,7 +121,7 @@
             const text = event.target.result;
             const jsonObject = convertTxtToJson(text);
             const base64Data = btoa(JSON.stringify(jsonObject));
-            const gameData = `./play.html?data=${base64Data}`;
+            const gameData = `${window.location.origin}/play.html?data=${base64Data}`;
             displayUrl(gameData);
         };
         reader.readAsText(file);
