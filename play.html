@@ -12,23 +12,41 @@
         .bingo-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: 120px; /* Ensure all rows are 120px in height */
             gap: 10px;
             margin-top: 20px;
+            max-width: 1200px;
         }
         .bingo-card {
             display: flex;
             justify-content: center;
             align-items: center;
             border: 1px solid #ccc;
-            height: 100px;
-            font-size: 1.5rem;
+            font-size: clamp(12px, 2vw, 25px); /* Scale font size with a maximum of 25px */
+            text-align: center;
+            overflow: hidden;
+            word-wrap: break-word;
+            display: -webkit-box; /* Required for webkit (Safari, Chrome) */
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3; /* Limit to three lines */
+            line-clamp: 3;
         }
         .tile-header {
             background-color: #f8f9fa;
             font-weight: bold;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: flex-end;   /* Align at the bottom */
+            height: 100%;            /* Take full height of the card */
+            width: 100%;             /* Ensure header takes the full width of the card */
         }
         .tile-content {
             background-color: #ffffff;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;     /* Center vertically */
+            height: 100%;            /* Take full height of the card */
+            width: 100%;             /* Ensure content takes the full width of the card */
         }
         .selected {
             background-color: #007bff;
@@ -121,36 +139,48 @@
         const base64Data = getUrlParameter('data');
         let shuffledGameData = null;
 
-        if (cookieData) {
-            const cookieObject = JSON.parse(cookieData);
-            if (base64Data && base64Data === cookieObject.original) {
-                gameData = cookieObject.shuffled;
-                initializeGame();
-            } else if (base64Data) {
-                gameData = JSON.parse(atob(base64Data));
-                for (let key in gameData) {
-                    if (Array.isArray(gameData[key])) {
-                        shuffle(gameData[key]);
+        try {
+            if (cookieData) {
+                const cookieObject = JSON.parse(cookieData);
+                if (base64Data && base64Data === cookieObject.original) {
+                    gameData = cookieObject.shuffled;
+                    initializeGame();
+                } else if (base64Data) {
+                    try {
+                        gameData = JSON.parse(atob(base64Data));
+                        shuffleGameData(gameData);
+                        shuffledGameData = gameData;
+                        showModal();
+                    } catch (e) {
+                        console.error('Error parsing game data from URL:', e);
                     }
+                } else {
+                    gameData = cookieObject.shuffled;
+                    initializeGame();
                 }
-                shuffledGameData = gameData;
-                showModal();
+            } else if (base64Data) {
+                try {
+                    gameData = JSON.parse(atob(base64Data));
+                    shuffleGameData(gameData);
+                    shuffledGameData = gameData;
+                    setCookie('bingoGameData', base64Data, shuffledGameData, 7);
+                    initializeGame();
+                } catch (e) {
+                    console.error('Error parsing game data from URL:', e);
+                }
             } else {
-                gameData = cookieObject.shuffled;
-                initializeGame();
+                console.error('No game data found in URL or cookie.');
             }
-        } else if (base64Data) {
-            gameData = JSON.parse(atob(base64Data));
-            for (let key in gameData) {
-                if (Array.isArray(gameData[key])) {
-                    shuffle(gameData[key]);
+        } catch (e) {
+            console.error('Error handling game data:', e);
+        }
+
+        function shuffleGameData(data) {
+            for (let key in data) {
+                if (Array.isArray(data[key])) {
+                    shuffle(data[key]);
                 }
             }
-            shuffledGameData = gameData;
-            setCookie('bingoGameData', base64Data, shuffledGameData, 7);
-            initializeGame();
-        } else {
-            console.error('No game data found in URL or cookie.');
         }
 
         function initializeGame() {
@@ -160,10 +190,8 @@
                 const bingoGrid = document.getElementById('bingoGrid');
                 const keys = Object.keys(gameData).filter(key => key !== 'title' && key !== 'Free');
 
-                // Clear any existing grid
                 bingoGrid.innerHTML = '';
 
-                // Generate the grid
                 for (let row = 0; row < 6; row++) {
                     for (let col = 0; col < 5; col++) {
                         const card = document.createElement('div');

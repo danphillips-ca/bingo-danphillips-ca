@@ -55,14 +55,14 @@
     <div class="container mt-5 position-relative">
         <!-- Bingoball image -->
         <img src="images/bingoball.webp" class="peek-image d-none d-md-block" alt="Peek Image">
-
+    
         <!-- Alert-->
         <div class="alert custom-alert alert-dismissible col-md-6 col-12 position-relative" role="alert" aria-label="Introduction and instructions">
             <h1 class="mb-4 text-center">BINGO <br/><span style="font-size:.6em;">everywhere</span></h1>
             <p>This platform lets you populate your own Bingo cards. Great for office parties, meet-and-greets, or bonding with your cynical cousins at the family picnic. Like the old Billy Mack song goes, <span style="font-style: italic;">Bingo is all around us</span>.</p>
             <p>Content is rendered by your browser and not transferred by this platform directly. However, the generated URLs can be decoded back into your file easily - so keep that in mind.</p>
             <h2 style="font-size: 1.5rem">Ready to play?</h2>
-
+    
             <!-- File Input -->
             <input type="file" id="txtFileInput" accept=".txt, .md" class="form-control mb-3">
             <button class="btn btn-primary m-2 w-100" onclick="handleFile()">Load Your Game <i class="bi bi-stars"></i></button>
@@ -71,105 +71,119 @@
             <!-- Instructions -->
             <h2 style="font-size: 1.5rem">Instructions</h2>
             <p>Download this template to populate bingo cards.</p>
-            <a href="/The Greatest Bingo Game of All Time.txt" download class="btn btn-primary m-2 w-100">Download Template <i class="bi bi-input-cursor-text"></i></a>
-            <h2><span style="font-size:.6em;">Setup</span></h2>
+            <div class="d-grid gap-0">
+                <a href="/The Greatest Bingo Game of All Time.txt" download class="btn btn-primary mb-2">Download Template <i class="bi bi-input-cursor-text"></i></a>
+                <a href="/play.html?data=eyJ0aXRsZSI6IkEgU3VtbWVyIEluIEhhbGlmYXgiLCJGcmVlIjpbIldhbGsgVXAgYSBIaWxsIiwiRWVrISBBIFJhdCEiLCJXYXRlcmZyb250IENyb3dkcyJdLCJDdWx0dXJlIjpbIk5hdHVyYWwgSGlzdG9yeSBNdXNldW0iLCJNYXJpdGltZSBNdXNldW0iLCJBZnJpY3ZpbGxlIE11c2V1bSIsIkNlbnRyYWwgTGlicmFyeSIsIkRpc2NvdmVyeSBDZW50cmUiLCJOUyBBcnQgR2FsbGFyeSIsIlBpZXIgMjEiXSwiUGF0aW9zIjpbIlN0aWxsd2VsbCIsIkdvb2QgUm9ib3QiLCJQcm9wZWxsZXIiLCJRdWlubidzIEJyZXdlcnkiLCJTdHViYm9ybiBHb2F0IiwiTWF4d2VsbCdzIFBsdW0iLCJTYWx0IFlhcmQiLCJGYXRoZXIncyBNb3VzdGFjaGUiXSwiUGFya3MiOlsiUHVibGljIEdhcmRlbnMiLCJQb2ludCBQbGVhc2FudCIsIlRoZSBDb21tb25zIiwiQ2l0YWRlbCBIaWxsIiwiU2h1YmllIiwiRm9ydCBOZWVkaGFtIl0sIkxha2VzIjpbIkNob2NvbGF0ZSBMYWtlIiwiUGVyY2VsbHMgTGFrZSIsIkZyb2cgUG9uZCIsIldpbGxpYW1zIExha2UiLCJMb25nIExha2UiLCJMYWtlIEJhbm9vayJdLCJJY2UgQ3JlYW0iOlsiRGFpcnkgQmFyIiwiRGVlIERlZSdzIiwiRmx5bm4ncyIsIkNvd3MiLCJUcmlwbGUgQSIsIkp1YmlsZWUgSnVuY3Rpb24iXX0=" class="btn btn-secondary">Try it Now <i class="bi bi-controller"></i></a>
+            </div>
+            <h2 style="font-size: 1.5rem">Setup</h2>
             <ul>
                 <li>Populate the title (#) and headings (##) with whatever you want.</li>
                 <li>Each line below that heading will be a tile that will be shuffled to appear on users BINGO cards. The typical BINGO card has 15 options per column, but so long as you have at least five you should be okay.</li>
                 <li>Load your file into this platform.</li>
                 <li>Share the link you receive! Every time you reload the page, you will get a new shuffled card.</li>
             </ul>
-            <!-- Examples -->
-            <h2><span style="font-size:.6em;">Try one right now!</span></h2>
-<!--            <div class="container">
-                <div class="row mb-3 ms-0 me-0">
-                    <div class="col-lg-6 mb-3 mb-lg-0 text-center">
-                        <div class="d-flex flex-column">
-                            <a href="/play?data=eyJmaWxlTmFtZSI6IlBsYWluIE9sZCBGYXNoaW9uZWQgQmluZ28iLCJGcmVlIjpbIkZyZWUgU3BhY2UhIiwiWW91IFJvY2shIiwiVGhpcyBvbmUgaXMgb24gdGhlIGhvdXNlISJdLCJCIjpbIjEiLCIyIiwiMyIsIjQiLCI1IiwiNiIsIjciLCI4IiwiOSIsIjEwIiwiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSJdLCJJIjpbIjE2IiwiMTciLCIxOCIsIjE5IiwiMjAiLCIyMSIsIjIyIiwiMjMiLCIyNCIsIjI1IiwiMjYiLCIyNyIsIjI4IiwiMjkiLCIzMCJdLCJOIjpbIjMxIiwiMzIiLCIzMyIsIjM0IiwiMzUiLCIzNiIsIjM3IiwiMzgiLCIzOSIsIjQwIiwiNDEiLCI0MiIsIjQzIiwiNDQiLCI0NSJdLCJHIjpbIjQ2IiwiNDciLCI0OCIsIjQ5IiwiNTAiLCI1MSIsIjUyIiwiNTMiLCI1NCIsIjU1IiwiNTYiLCI1NyIsIjU4IiwiNTkiLCI2MCJdLCJPIjpbIjYxIiwiNjIiLCI2MyIsIjY0IiwiNjUiLCI2NiIsIjY3IiwiNjgiLCI2OSIsIjcwIiwiNzEiLCI3MiIsIjczIiwiNzQiLCI3NSJdfQ" class="btn btn-primary my-2 w-100">Classic Bingo <i class="bi bi-mouse2"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="d-flex flex-column">
-                            <a href="/play?data=JTdCJTIyZmlsZU5hbWUlMjIlM0ElMjJNZWV0JTIwYW5kJTIwR3JlZXQlMjBCSU5HTyElMjIlMkMlMjJGcmVlJTIyJTNBJTVCJTIySXMlMjB3b3J0aHklMjBvZiUyMGxvdmUuJTIwKFB1dCUyMHlvdXIlMjBvd24lMjBuYW1lJTIwaGVyZSEpJTIyJTJDJTIyQ2FuJTIwa2lzcyUyMHRoZWlyJTIwZWxib3cuJTIwKE9rYXklMkMlMjBubyUyMG9uZSUyMGNhbiUyMGRvJTIwdGhhdC4lMjBZb3UlMjBjYW4lMjBoYXZlJTIwdGhpcyUyMG9uZSUyMGZyZWUhKSUyMiUyQyUyMklzJTIwZ29pbmclMjB0byUyMHdpbiUyMHRoaXMlMjBCSU5HTyUyMGdhbWUuJTIwKFB1dCUyMHlvdXIlMjBuYW1lJTIwaGVyZSUyMGFuZCUyMGNvbnNpZGVyJTIwdGhpcyUyMGElMjBmcmVlJTIwc3BhY2UuJTIwSWYlMjBpdCUyMHR1cm5zJTIwb3V0JTIweW91J3JlJTIwd3JvbmclMkMlMjBubyUyMG9uZSUyMHdpbGwlMjBldmVyJTIwa25vdyEpJTIyJTJDJTIyRnJlZSUyMFRpbGUlMjAoVGlsZSUyMGRpZCUyMG5vdGhpbmclMjB3cm9uZyEpJTIyJTVEJTJDJTIyQmFja2dyb3VuZCUyMiUzQSU1QiUyMkNpdGl6ZW4lMjBvZiUyMEFub3RoZXIlMjBDb3VudHJ5JTIyJTJDJTIyQWxsZXJnaWVzJTIyJTJDJTIyVGF0dG9vZWQlMjIlMkMlMjJCaXJ0aGRheSUyMG9uJTIwYSUyMEhvbGlkYXklMjIlMkMlMjJNb3ZlZCUyMHRvJTIwdGhlJTIwQ2l0eSUyMFRoaXMlMjBZZWFyJTIyJTJDJTIyTWlkZGxlJTIwQ2hpbGQlMjIlMkMlMjJMaWNlbnNlJTIwZm9yJTIwU29tZXRoaW5nJTIwT3RoZXIlMjB0aGFuJTIwRHJpdmluZyUyMiUyQyUyMkNvbG91cmJsaW5kJTIyJTJDJTIyV2VudCUyMHRvJTIwQ29sbGVnZSUyMiUyQyUyMkdyZXclMjBVcCUyMGluJTIwYSUyMFNtYWxsJTIwVG93biUyMiUyQyUyMk1pbGl0YXJ5JTIwQnJhdCUyMiU1RCUyQyUyMkludGVyZXN0cyUyMiUzQSU1QiUyMktuaXRzJTIyJTJDJTIyUGFpbnRzJTIyJTJDJTIyUnVubmVyJTIyJTJDJTIyUGxheXMlMjBvbiUyMGElMjBUZWFtJTIyJTJDJTIyUmVhZHMlMjBIb3Jyb3IlMjIlMkMlMjJQbGF5cyUyMER1bmdlb25zJTIwYW5kJTIwRHJhZ29ucyUyMiUyQyUyMkhpa2VyJTIyJTJDJTIyUmlkZXMlMjBhJTIwTW90b3JjeWNsZSUyMiUyQyUyMkhhdGVzJTIwQnJvY2NvbGklMjIlMkMlMjJMb3ZlcyUyMEJyb2Njb2xpJTIyJTJDJTIyRWF0cyUyMEZyaWVzJTIwV2l0aCUyMFZpbmVnYXIlMjIlMkMlMjJSZWFkJTIwdGhlJTIwYm9vayUyMEJlYXIlMjIlMkMlMjJXYXRjaGVkJTIwVGhlJTIwQmVhciUyMG9uJTIwRGlzbmV5JTIwUGx1cyUyMiU1RCUyQyUyMk5vdGFibGUlMjBBY2hpZXZlbWVudHMlMjIlM0ElNUIlMjJXb24lMjBhbiUyMEF3YXJkJTIyJTJDJTIyUHVibGlzaGVkJTIwYSUyMEJvb2slMjBvciUyMEFydGljbGUlMjIlMkMlMjJIb2xkcyUyMGElMjBNYXJ0aWFsJTIwQXJ0JTIwUmFuayUyMiUyQyUyMlNwZWFrcyUyMEFub3RoZXIlMjBMYW5ndWFnZSUyMEZsdWVudGx5JTIyJTJDJTIyT3ZlcmNhbWUlMjBhJTIwRmVhciUyMiUyQyUyMkFjdGVkJTIwaW4lMjBhJTIwUGxheSUyMG9yJTIwTXVzaWNhbCUyMiUyQyUyMk1lbnRvciUyMiUyQyUyMlNob3djYXNlZCUyMEFydCUyMGluJTIwYW4lMjBFeGhpYml0JTIyJTJDJTIyVm9sdW50ZWVycyUyMHdpdGglMjBhJTIwTm9uLVByb2ZpdCUyMiUyQyUyMkNvcnJlY3RseSUyMFNwZWxscyUyMEZ1c2NoaWElMjBvbiUyMHRoZSUyMEZpcnN0JTIwVHJ5JTIyJTVEJTJDJTIyR3VpbHR5JTIwUGxlYXN1cmVzJTIyJTNBJTVCJTIyQXV0aG9yZWQlMjBhJTIwRmFuZmljJTIyJTJDJTIyV2F0Y2hlcyUyMHRoZSUyMFNhbWUlMjBNb3ZpZSUyMG9yJTIwU2hvdyUyMFJlcGVhdGVkbHklMjIlMkMlMjJFYXRzJTIwaW4lMjBCZWQlMjIlMkMlMjJTaW5ncyUyMGluJTIwdGhlJTIwU2hvd2VyJTIyJTJDJTIyV2F0Y2hlcyUyMFJlYWxpdHklMjBUViUyMiUyQyUyMkJ1YmJsZSUyMEJhdGhlciUyMiUyQyUyMlBsYXlzJTIwVmlkZW8lMjBHYW1lcyUyMGZvciUyMEhvdXJzJTIyJTJDJTIyRm9sbG93cyUyMEhvcm9zY29wZXMlMjBpbiUyMFNlY3JldCUyMiUyQyUyMlNsZWVwcyUyMHdpdGglMjBhJTIwU3R1ZmZlZCUyMEFuaW1hbCUyMiUyQyUyMlNwaWVzJTIwb24lMjB0aGUlMjBOZWlnaGJvdXJzJTIyJTJDJTIyQ2FuJUUyJTgwJTk5dCUyMEtlZXAlMjBhJTIwUGxhbnQlMjBBbGl2ZSUyMGJ1dCUyMERvZXNuJUUyJTgwJTk5dCUyMFN0b3AlMjBUcnlpbmchJTIyJTJDJTIyRmF2b3VyaXRlJTIwU25hY2slMjBUaGF0JTIwTW9zdCUyMFBlb3BsZSUyMEZpbmQlMjBHcm9zcyUyMiUyQyUyMkRhbmNlcyUyMFdoZW4lMjBOb2JvZHkncyUyMFdhdGNoaW5nJTIyJTVEJTJDJTIyT2RkaXRpZXMlMjIlM0ElNUIlMjJXZWFycyUyME1pc21hdGNoZWQlMjBTb2NrcyUyMiUyQyUyMkRhbmNlcyUyMExpa2UlMjBOb2JvZHklRTIlODAlOTlzJTIwV2F0Y2hpbmclMjAoQnV0JTIwRXZlcnlib2R5JUUyJTgwJTk5cyUyMFdhdGNoaW5nKSUyMiUyQyUyMkdldHMlMjB0aGUlMjBBU01SJTIwVGluZ2xpZXMlMjIlMkMlMjJDaGVja3MlMjB0aGUlMjBPdmVuJTIwVGhyZWUlMjBUaW1lcyUyMEJlZm9yZSUyMExlYXZpbmclMjBIb21lJTIyJTJDJTIyQWJzdHJhY3QlMjBEcmVhbWVyJTIyJTJDJTIyUGVlcyUyMGluJTIwdGhlJTIwU2hvd2VyJTIyJTJDJTIyU3BlYWtzJTIwdG8lMjBIb3VzZXBsYW50cyUyMiUyQyUyMldlYXJzJTIwU3VuZ2xhc3NlcyUyMEluZG9vcnMlMjIlMkMlMjJDYXJyaWVzJTIwYSUyMFNtYWxsJTIwVG95JTIyJTJDJTIyT3JnYW5pemVzJTIwU3BpY2VzJTIwQWxwaGFiZXRpY2FsbHklMjIlMkMlMjJUYXBlcyUyME92ZXIlMjBMYXB0b3AlMjBDYW1lcmElMjIlMkMlMjJTbmlmZnMlMjBOZXclMjBCb29rcyUyMExvdWRseSUyMiUyQyUyMkRvb2RsZXMlMjBpbiUyMHRoZSUyME1hcmdpbnMlMjIlNUQlN0Q" class="btn btn-primary my-2 w-100">Make a Friend <i class="bi bi-mouse2"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="d-flex flex-column">
-                            <a href="/play?data=JTdCJTIyZmlsZU5hbWUlMjIlM0ElMjJTdHVjayUyMGluJTIwYSUyME1lZXRpbmclMjBCaW5nbyUyMiUyQyUyMkZyZWUlMjIlM0ElNUIlMjJDb3VsZCUyMEhhdmUlMjBCZWVuJTIwQW4lMjBFbWFpbCUyMChGcmVlJTIwU3BhY2UpJTIyJTVEJTJDJTIyVGVjaG5pY2FsJTIwRGlmZmljdWx0aWVzJTIyJTNBJTVCJTIyRm9yZ290JTIwdG8lMjBVbm11dGUlMjIlMkMlMjJNaWNyb3Bob25lJTIwRmVlZGJhY2slMjIlMkMlMjJQb29yJTIwSW50ZXJuZXQlMjBDb25uZWN0aW9uJTIyJTJDJTIyRnJvemVuJTIwVmlkZW8lMjIlMkMlMjJFY2hvaW5nJTIwQXVkaW8lMjIlMkMlMjJJbmNvbXBhdGlibGUlMjBTb2Z0d2FyZSUyMiUyQyUyMlVuYWJsZSUyMHRvJTIwSm9pbiUyME1lZXRpbmclMjIlMkMlMjJBdWRpbyUyMERyb3BzJTIwT3V0JTIyJTJDJTIyVmlkZW8lMjBEcm9wcyUyME91dCUyMiUyQyUyMlNjcmVlbiUyMFNoYXJpbmclMjBGYWlsdXJlcyUyMiUyQyUyMlVucmVzcG9uc2l2ZSUyMEFwcGxpY2F0aW9uJTIyJTJDJTIyQ2FtZXJhJTIwTm90JTIwV29ya2luZyUyMiUyQyUyMkRlbGF5ZWQlMjBSZXNwb25zZXMlMjIlMkMlMjJJbmNvcnJlY3QlMjBTY3JlZW4lMjBTaGFyZSUyMiUyQyUyMlNvZnR3YXJlJTIwVXBkYXRlcyUyME1pZC1XZWJpbmFyJTIyJTJDJTIyTG9naW4lMjBDcmVkZW50aWFscyUyMEZvcmdvdHRlbiUyMiUyQyUyMlBsYXliYWNrJTIwSXNzdWVzJTIyJTJDJTIyTWlzY29uZmlndXJlZCUyMEF1ZGlvJTIwU2V0dGluZ3MlMjIlMkMlMjJCcm93c2VyJTIwQ29tcGF0aWJpbGl0eSUyMElzc3VlcyUyMiUyQyUyMlByZXNlbnRhdGlvbiUyMEZpbGUlMjBDb3JydXB0aW9uJTIyJTVEJTJDJTIyRGlzdHJhY3Rpb25zJTIyJTNBJTVCJTIyQ2F0JTIwTWFrZXMlMjBhbiUyMEFwcGVhcmFuY2UlMjIlMkMlMjJEb2clMjBCYXJraW5nJTIyJTJDJTIyQ2hpbGRyZW4lMjBJbnRlcnJ1cHRpbmclMjIlMkMlMjJMb3VkJTIwQXBwbGlhbmNlJTIwTm9pc2UlMjIlMkMlMjJEb29yYmVsbCUyMFJpbmdpbmclMjIlMkMlMjJQaG9uZSUyMFJpbmdpbmclMjIlMkMlMjJCYWNrZ3JvdW5kJTIwQ29udmVyc2F0aW9ucyUyMiUyQyUyMkNvbnN0cnVjdGlvbiUyME5vaXNlJTIyJTJDJTIyVHJhZmZpYyUyME5vaXNlJTIyJTJDJTIyVmlydHVhbCUyMEJhY2tncm91bmQlMjBNYWxmdW5jdGlvbiUyMiUyQyUyMlVubXV0ZWQlMjBQYXJ0aWNpcGFudHMlMjIlMkMlMjJQYXJ0aWNpcGFudCUyME11bHRpdGFza2luZyUyME5vaXNlJTIyJTJDJTIyU3VkZGVuJTIwV2VhdGhlciUyME5vaXNlJTIyJTJDJTIyT2ZmaWNlJTIwRXF1aXBtZW50JTIwTWFsZnVuY3Rpb25zJTIyJTJDJTIyU2lkZSUyMENvbnZlcnNhdGlvbnMlMjBpbiUyMENoYXQlMjIlMkMlMjJVbmV4cGVjdGVkJTIwR3Vlc3RzJTIyJTVEJTJDJTIyRW5nYWdlbWVudCUyMElzc3VlcyUyMiUzQSU1QiUyMkF3a3dhcmQlMjBTaWxlbmNlcyUyMiUyQyUyMkxhY2slMjBvZiUyMFBhcnRpY2lwYXRpb24lMjIlMkMlMjJNb25vdG9uZSUyMFByZXNlbnRlciUyMiUyQyUyMk92ZXJsb2FkZWQlMjBTbGlkZXMlMjIlMkMlMjJSZXBldGl0aXZlJTIwQ29udGVudCUyMiUyQyUyMlElMjZBJTIwRG9taW5hdGVkJTIwYnklMjBPbmUlMjBQZXJzb24lMjIlMkMlMjJDb25mdXNpbmclMjBJbnN0cnVjdGlvbnMlMjIlMkMlMjJJcnJlbGV2YW50JTIwUXVlc3Rpb25zJTIyJTJDJTIyVW5jbGVhciUyMFByZXNlbnRhdGlvbiUyMEZsb3clMjIlMkMlMjJQYXJ0aWNpcGFudHMlMjBOb3QlMjBQYXlpbmclMjBBdHRlbnRpb24lMjIlMkMlMjJMb25nLVdpbmRlZCUyMEludHJvZHVjdGlvbnMlMjIlMkMlMjJQcmVzZW50ZXIlMjBUYWxraW5nJTIwVG9vJTIwRmFzdCUyMiUyQyUyMk92ZXJseSUyMENvbXBsZXglMjBDb250ZW50JTIyJTJDJTIyQ2hhdCUyMEJveCUyME1pc3VzZSUyMiUyQyUyMk5vJTIwVmlzdWFscyUyMGF0JTIwQWxsJTIyJTVEJTJDJTIyUHJlcGFyYXRpb24lMjBJc3N1ZXMlMjIlM0ElNUIlMjJMYXN0LU1pbnV0ZSUyMENoYW5nZXMlMjIlMkMlMjJNaXNzaW5nJTIwUHJlc2VudGF0aW9uJTIwTWF0ZXJpYWxzJTIyJTJDJTIyVW5wcmVwYXJlZCUyMFByZXNlbnRlciUyMiUyQyUyMkluY29ycmVjdCUyME1lZXRpbmclMjBMaW5rJTIyJTJDJTIyTWlzc2luZyUyMFBhcnRpY2lwYW50cyUyMiUyQyUyMk92ZXJydW5uaW5nJTIwVGltZSUyMiUyQyUyMk5vJTIwQWdlbmRhJTIwUHJvdmlkZWQlMjIlMkMlMjJJbnN1ZmZpY2llbnQlMjBCcmVha3MlMjIlMkMlMjJNaXNjb21tdW5pY2F0aW9uJTIwQWJvdXQlMjBUaW1pbmclMjIlMkMlMjJMYWNrJTIwb2YlMjBUZWNobmljYWwlMjBSZWhlYXJzYWwlMjIlMkMlMjJQb29yJTIwVGltZSUyME1hbmFnZW1lbnQlMjIlMkMlMjJJbmVmZmVjdGl2ZSUyME1vZGVyYXRpb24lMjIlMkMlMjJDb25mdXNpbmclMjBTaWduLVVwJTIwUHJvY2VzcyUyMiUyQyUyMkluYWRlcXVhdGUlMjBJbnN0cnVjdGlvbnMlMjBmb3IlMjBQYXJ0aWNpcGFudHMlMjIlMkMlMjJJbmNvbXBsZXRlJTIwb3IlMjBPdXRkYXRlZCUyMENvbnRlbnQlMjIlNUQlMkMlMjJQcmVzZW50YXRpb24lMjBQcm9ibGVtcyUyMiUzQSU1QiUyMk92ZXJseSUyMEJ1c3klMjBTbGlkZXMlMjIlMkMlMjJQb29ybHklMjBEZXNpZ25lZCUyMEdyYXBoaWNzJTIyJTJDJTIyVGV4dCUyMFRvbyUyMFNtYWxsJTIwdG8lMjBSZWFkJTIyJTJDJTIySW5jb25zaXN0ZW50JTIwRm9udHMlMjBhbmQlMjBDb2xvcnMlMjIlMkMlMjJEaXN0cmFjdGluZyUyMEFuaW1hdGlvbnMlMjIlMkMlMjJMb3ctUXVhbGl0eSUyMEltYWdlcyUyMiUyQyUyMk1pc2FsaWduZWQlMjBUZXh0JTIwYW5kJTIwSW1hZ2VzJTIyJTJDJTIyTWlzc2luZyUyMFZpc3VhbCUyMEFpZHMlMjIlMkMlMjJVbnJlYWRhYmxlJTIwQ2hhcnRzJTIyJTJDJTIyRXhjZXNzaXZlJTIwVXNlJTIwb2YlMjBCdWxsZXQlMjBQb2ludHMlMjIlMkMlMjJNaXNsZWFkaW5nJTIwVmlzdWFscyUyMiUyQyUyMlBvb3JseSUyMENob3NlbiUyMENvbG9yJTIwU2NoZW1lcyUyMiUyQyUyMlByZXNlbnRhdGlvbiUyMEZpbGUlMjBGb3JtYXQlMjBJc3N1ZXMlMjIlMkMlMjJVbmNsZWFyJTIwb3IlMjBDb25mdXNpbmclMjBEaWFncmFtcyUyMiUyQyUyMlZpc3VhbCUyMERpc3RyYWN0aW9ucyUyMiU1RCU3RA" class="btn btn-primary my-2 w-100">Stuck in a Meeting <i class="bi bi-mouse2"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-    <!--TOAST-->
+        </div>
+    </div>
+    
+
+    <!-- Toast container -->
     <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
-    <div id="feedback" class="alert alert-info" style="display: none;"></div>
 
-</div>
-
-<script>
-    function handleFile() {
-        const input = document.getElementById('txtFileInput');
-        const file = input.files[0];
-        if (!file) {
-            alert("Please select a file.");
-            return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const text = event.target.result;
-            const jsonObject = convertTxtToJson(text);
-            const base64Data = btoa(JSON.stringify(jsonObject));
-            const gameData = `${window.location.origin}/play.html?data=${base64Data}`;
-            displayUrl(gameData);
-        };
-        reader.readAsText(file);
-    }
-
-    function convertTxtToJson(txtText) {
-        const lines = txtText.split(/\r\n|\n/);
-        const result = {};
-        let currentKey = '';
-
-        lines.forEach(line => {
-            if (line.startsWith('# ')) {
-                result.title = line.slice(2).trim();
-            } else if (line.startsWith('## ')) {
-                currentKey = line.slice(3).trim();
-                result[currentKey] = [];
-            } else if (line.trim()) {
-                result[currentKey].push(line.trim());
+    <!-- JavaScript -->
+    <script>
+        function handleFile() {
+            const input = document.getElementById('txtFileInput');
+            const file = input.files[0];
+            if (!file) {
+                alert("Please select a file.");
+                return;
             }
-        });
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const text = event.target.result;
+                const jsonObject = convertTxtToJson(text);
+                const base64Data = btoa(JSON.stringify(jsonObject));
+                const gameData = `${window.location.origin}/play.html?data=${base64Data}`;
+                displayUrl(gameData);
+            };
+            reader.readAsText(file);
+        }
 
-        return result;
-    }
+        function convertTxtToJson(txtText) {
+            const lines = txtText.split(/\r\n|\n/);
+            const result = {};
+            let currentKey = '';
 
-    function displayUrl(url) {
-        const container = document.getElementById('shareableUrlContainer');
-        container.innerHTML = `
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" value="${url}" id="shareableUrl" readonly>
-                <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">
-                    <i class="bi bi-share"></i>
-                </button>
-            </div>
-        `;
-    }
+            lines.forEach(line => {
+                if (line.startsWith('# ')) {
+                    result.title = line.slice(2).trim();
+                } else if (line.startsWith('## ')) {
+                    currentKey = line.slice(3).trim();
+                    result[currentKey] = [];
+                } else if (line.trim()) {
+                    result[currentKey].push(line.trim());
+                }
+            });
 
-    function copyToClipboard() {
-        const copyText = document.getElementById('shareableUrl');
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
+            return result;
+        }
 
-        document.execCommand("copy");
+        function displayUrl(url) {
+            const container = document.getElementById('shareableUrlContainer');
+            container.innerHTML = `
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" value="${url}" id="shareableUrl" readonly onclick="copyToClipboard()">
+                    <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">
+                        <i class="bi bi-share"></i>
+                    </button>
+                    <button class="btn btn-primary" type="button" onclick="openInNewTab()">
+                        <i class="bi bi-play-fill"></i>
+                    </button>
+                </div>
+            `;
+        }
 
-        alert("Copied the URL: " + copyText.value);
-    }
-</script>
+        function copyToClipboard() {
+            const copyText = document.getElementById('shareableUrl');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
 
-<!--BootStrap Script-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            document.execCommand("copy");
+
+            showToast("Copied to Clipboard");
+        }
+
+        function openInNewTab() {
+            const url = document.getElementById('shareableUrl').value;
+            window.open(url, '_blank');
+        }
+
+        function showToast(message) {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-bg-success border-0 show';
+            toast.role = 'alert';
+            toast.ariaLive = 'assertive';
+            toast.ariaAtomic = 'true';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toastContainer.removeChild(toast);
+            }, 3000);
+        }
+    </script>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
