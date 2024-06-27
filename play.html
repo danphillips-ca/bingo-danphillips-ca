@@ -12,7 +12,7 @@
         .bingo-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            grid-auto-rows: 120px; /* Ensure all rows are 120px in height */
+            grid-template-rows: auto repeat(5, 120px); /* First row to auto and next five rows to 120px */
             gap: 10px;
             margin-top: 20px;
             max-width: 1200px;
@@ -37,7 +37,7 @@
             display: flex;
             justify-content: center; /* Center horizontally */
             align-items: flex-end;   /* Align at the bottom */
-            height: 100%;            /* Take full height of the card */
+            height: auto;            /* Set height to auto */
             width: 100%;             /* Ensure header takes the full width of the card */
         }
         .tile-content {
