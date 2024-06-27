@@ -15,21 +15,20 @@ function toggleFullscreen() {
 
 // Function to delete a cookie by name
 function deleteCookie(name) {
-    // Set the cookie's expiration date to a past date
+    console.log('Deleting cookie:', name);
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    // Reload the webpage
+    console.log('Cookie deleted. Reloading page...');
     location.reload();
 }
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 
 // Function to shuffle an array
 function shuffle(array) {
+    console.log('Shuffling array:', array);
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
+    console.log('Shuffled array:', array);
     return array;
 }
 
@@ -58,28 +57,6 @@ function getUrlParameter(name) {
 
 // Function to initialize the game
 function initializeGame() {
-    let gameData;
-
-    const base64Data = getUrlParameter('data');
-    const cookieData = getCookie('bingoGameData');
-
-    if (base64Data) {
-        try {
-            gameData = JSON.parse(atob(base64Data));
-            shuffleGameData(gameData);
-            setCookie('bingoGameData', JSON.stringify({ original: base64Data, shuffled: gameData }), 7);
-        } catch (e) {
-            console.error('Error parsing game data from URL:', e);
-        }
-    } else if (cookieData) {
-        try {
-            const cookieObject = JSON.parse(cookieData);
-            gameData = cookieObject.shuffled;
-        } catch (e) {
-            console.error('Error parsing game data from cookie:', e);
-        }
-    }
-
     if (gameData) {
         document.getElementById('gameTitle').innerText = gameData.title;
 
@@ -122,17 +99,68 @@ function initializeGame() {
 }
 
 function shuffleGameData(data) {
+    console.log('Shuffling game data:', data);
     for (let key in data) {
         if (Array.isArray(data[key])) {
             shuffle(data[key]);
         }
     }
+    console.log('Shuffled game data:', data);
 }
 
 // Initialize the game when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('Page loaded. Initializing game...');
     initializeGame();
 });
-=======
->>>>>>> parent of cca7f69 (Moving all javascript to script.js)
->>>>>>> Stashed changes
+
+let gameData = null;
+const cookieData = getCookie('bingoGameData');
+const base64Data = getUrlParameter('data');
+
+console.log('Cookie data:', cookieData);
+console.log('URL data:', base64Data);
+
+try {
+    if (cookieData) {
+        const cookieObject = JSON.parse(cookieData);
+        console.log('Parsed cookie object:', cookieObject);
+        if (base64Data && base64Data === cookieObject.original) {
+            gameData = cookieObject.shuffled;
+            console.log('Using shuffled data from cookie:', gameData);
+            initializeGame();
+        } else if (base64Data) {
+            try {
+                gameData = JSON.parse(atob(base64Data));
+                console.log('Parsed URL data:', gameData);
+                shuffleGameData(gameData);
+                shuffledGameData = gameData;
+                console.log('Shuffled new game data:', shuffledGameData);
+                setCookie('bingoGameData', base64Data, shuffledGameData, 7);
+                initializeGame();
+            } catch (e) {
+                console.error('Error parsing game data from URL:', e);
+            }
+        } else {
+            gameData = cookieObject.shuffled;
+            console.log('Using shuffled data from cookie:', gameData);
+            initializeGame();
+        }
+    } else if (base64Data) {
+        try {
+            gameData = JSON.parse(atob(base64Data));
+            console.log('Parsed URL data:', gameData);
+            shuffleGameData(gameData);
+            shuffledGameData = gameData;
+            console.log('Shuffled new game data:', shuffledGameData);
+            setCookie('bingoGameData', base64Data, shuffledGameData, 7);
+            initializeGame();
+        } catch (e) {
+            console.error('Error parsing game data from URL:', e);
+        }
+    } else {
+        console.error('No game data found in URL or cookie.');
+    }
+} catch (e) {
+    console.error('Error handling game data:', e);
+}
