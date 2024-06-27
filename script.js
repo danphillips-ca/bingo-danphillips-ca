@@ -16,7 +16,7 @@ function toggleFullscreen() {
 // Function to delete a cookie by name
 function deleteCookie(name) {
     console.log('Deleting cookie:', name);
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict`;
     console.log('Cookie deleted. Reloading page...');
     location.reload();
 }
