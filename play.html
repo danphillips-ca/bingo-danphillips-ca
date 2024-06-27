@@ -70,9 +70,9 @@
             color: #ffffff;
         }
         .free-space {
-            display: block;
             font-size: 0.6em; /* Set font size to 60% of the parent element */
             text-align: center; /* Center the text */
+            width: 100%; /* Ensure it takes the full width */
         }
     </style>
 </head>
@@ -227,7 +227,10 @@ function initializeGame() {
                     if (row === 3 && col === 2) {
                         const freeItems = gameData['Free'];
                         const freeText = freeItems[Math.floor(Math.random() * freeItems.length)];
-                        card.innerHTML = `${freeText}<br><span class="free-space"><strong>Free Space!</stong></span>`;
+                        card.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                                            <div>${freeText}</div>
+                                            <div class="free-space">Free Space</div>
+                                          </div>`;
                     } else {
                         const listKey = keys[col];
                         if (gameData[listKey] && gameData[listKey][row - 1]) {
