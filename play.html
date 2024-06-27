@@ -71,7 +71,8 @@
         }
         .free-space {
             display: block;
-            font-size: 0.6em;
+            font-size: 0.6em; /* Set font size to 60% of the parent element */
+            text-align: center; /* Center the text */
         }
     </style>
 </head>
@@ -204,44 +205,44 @@
             }
         }
 
-        function initializeGame() {
-            if (gameData) {
-                document.getElementById('gameTitle').innerText = gameData.title;
-        
-                const bingoGrid = document.getElementById('bingoGrid');
-                const keys = Object.keys(gameData).filter(key => key !== 'title' && key !== 'Free');
-        
-                bingoGrid.innerHTML = '';
-        
-                for (let row = 0; row < 6; row++) {
-                    for (let col = 0; col < 5; col++) {
-                        const card = document.createElement('div');
-                        card.className = 'bingo-card';
-        
-                        if (row === 0) {
-                            card.classList.add('tile-header');
-                            card.innerText = keys[col];
-                        } else {
-                            card.classList.add('tile-content');
-                            if (row === 3 && col === 2) {
-                                const freeItems = gameData['Free'];
-                                const freeText = freeItems[Math.floor(Math.random() * freeItems.length)];
-                                card.innerHTML = `${freeText}<br><span class="free-space">Free Space</span>`;
-                            } else {
-                                const listKey = keys[col];
-                                if (gameData[listKey] && gameData[listKey][row - 1]) {
-                                    card.innerText = gameData[listKey][row - 1];
-                                }
-                            }
-                            card.addEventListener('click', () => {
-                                card.classList.toggle('selected');
-                            });
+function initializeGame() {
+    if (gameData) {
+        document.getElementById('gameTitle').innerText = gameData.title;
+
+        const bingoGrid = document.getElementById('bingoGrid');
+        const keys = Object.keys(gameData).filter(key => key !== 'title' && key !== 'Free');
+
+        bingoGrid.innerHTML = '';
+
+        for (let row = 0; row < 6; row++) {
+            for (let col = 0; col < 5; col++) {
+                const card = document.createElement('div');
+                card.className = 'bingo-card';
+
+                if (row === 0) {
+                    card.classList.add('tile-header');
+                    card.innerText = keys[col];
+                } else {
+                    card.classList.add('tile-content');
+                    if (row === 3 && col === 2) {
+                        const freeItems = gameData['Free'];
+                        const freeText = freeItems[Math.floor(Math.random() * freeItems.length)];
+                        card.innerHTML = `${freeText}<br><span class="free-space"><strong>Free Space!</stong></span>`;
+                    } else {
+                        const listKey = keys[col];
+                        if (gameData[listKey] && gameData[listKey][row - 1]) {
+                            card.innerText = gameData[listKey][row - 1];
                         }
-                        bingoGrid.appendChild(card);
                     }
+                    card.addEventListener('click', () => {
+                        card.classList.toggle('selected');
+                    });
                 }
+                bingoGrid.appendChild(card);
             }
         }
+    }
+}
     </script>
 </body>
 </html>
