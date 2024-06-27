@@ -123,3 +123,36 @@ h1 {
 .peek-image[style*="display: none"] {
     display: none !important;
 }
+
+
+/* Navbar */
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar {
+    --bs-navbar-padding-y: 0;
+    padding: 0 1rem;
+  }
+  
+  .navbar-toggler {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #929292; /* Set the background color of the hamburger button */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #000;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #007bff;
+  }
+  
+  .collapse.navbar-collapse {
+    justify-content: flex-end;
+  }
+  
