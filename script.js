@@ -1,3 +1,14 @@
+// Declare gameData only once
+let gameData = null;
+
+// Function to delete a cookie by name
+function deleteCookie(name) {
+    console.log('Deleting cookie:', name);
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict`;
+    console.log('Cookie deleted. Reloading page...');
+    location.reload();
+}
+
 function toggleFullscreen() {
     var navbarCollapse = document.getElementById('navbarNav');
     if (!document.fullscreenElement) {
@@ -11,14 +22,6 @@ function toggleFullscreen() {
         });
         bsCollapse.hide();
     }
-}
-
-// Function to delete a cookie by name
-function deleteCookie(name) {
-    console.log('Deleting cookie:', name);
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict`;
-    console.log('Cookie deleted. Reloading page...');
-    location.reload();
 }
 
 // Function to shuffle an array
